@@ -12,7 +12,7 @@ const GithubContext = React.createContext(); // 1 step
 
 const GithubProvider = ({ children }) => {
   return (
-    <GithubContext.Provider vlue={"hello"}>{children}</GithubContext.Provider>
+    <GithubContext.Provider value={"hello"}>{children}</GithubContext.Provider>
   );
 }; // 2 step
 
