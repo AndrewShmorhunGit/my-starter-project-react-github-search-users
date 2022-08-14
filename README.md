@@ -90,6 +90,8 @@ version used - "react-router-dom": "^5.2.0",
 
 ## Additional Info
 
+May use for git practice 😉
+
 #### Redirects with react-router-dom
 
 In order for routing to work on netlify, redirects was added to the public folder
