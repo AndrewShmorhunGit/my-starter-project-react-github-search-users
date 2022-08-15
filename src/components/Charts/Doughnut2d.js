@@ -19,8 +19,8 @@ import FusionTheme from "fusioncharts/themes/fusioncharts.theme.gammel";
 // Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
 
-// STEP 3 - Creating the JSON object to store the chart configurations
 const Doughnut2d = ({ data }) => {
+  // STEP 3 - Creating the JSON object to store the chart configurations
   const chartConfigs = {
     type: "doughnut2d", // The chart type
     width: "100%", // Width of the chart
@@ -32,18 +32,11 @@ const Doughnut2d = ({ data }) => {
         //Set the chart caption
         caption: "Stars per Language",
         // //Set the chart subcaption
-        // subCaption: "In MMbbl = One Million barrels",
-        // //Set the x-axis name
-        // xAxisName: "Country",
-        // //Set the y-axis name
-        // yAxisName: ы"Reserves (MMbbl)",
-        // numberSuffix: "%",
-        //Set the theme for your chart
         paletteColors:
-          "#f7e018, #0066b6 ,#d84924, #0066b6, #f7e018, #1098ad, #12b886, #be4bdb, #868e96",
+          "#51cf66, #0066b6 ,#d84924, #868e96, #f7e018, #1098ad, #12b886, #be4bdb, #868e96",
         theme: "gammel",
         decimals: 0,
-        doughnutRadius: "60%",
+        doughnutRadius: "65%",
         showPercentValues: 0,
       },
       // Chart Data

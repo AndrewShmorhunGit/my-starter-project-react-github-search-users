@@ -6,8 +6,6 @@ import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { repos } = React.useContext(GithubContext);
 
-  console.log(repos);
-
   const languages = repos.reduce((total, item) => {
     const { language, stargazers_count } = item;
     if (!language) return total;
@@ -43,53 +41,42 @@ const Repos = () => {
     })
     .slice(0, 7);
 
-  console.log(mostPopular, starsReiting);
-  // let stars = repos.reduce((total, item) => {
-  //   const { language, stargazers_count } = item;
+  let { stars, forks } = repos.reduce(
+    (total, item, index) => {
+      const { stargazers_count, name, forks } = item;
+      total.stars[`${stargazers_count}+${index.toString()}`] = {
+        label: name,
+        value: stargazers_count,
+      };
 
-  //   if (!language) return total;
-  //   if (!total[language]) {
-  //     total[language] = { label: language, value: 1 * item.stargazers_count };
-  //   } else {
-  //     total[language] = {
-  //       label: language,
-  //       value: total[language].value + 1,
-  //       stars: total[language].value + stargazers_count,
-  //     };
-  //   }
+      total.forks[`${forks}+${index.toString()}`] = {
+        label: name,
+        value: forks,
+      };
+      return total;
+    },
+    { stars: {}, forks: {} }
+  );
 
-  //   return total;
-  // }, {});
+  const reposStarsMAX = Object.values(stars)
+    .sort((a, b) => {
+      return b.value - a.value;
+    })
+    .slice(0, 5);
 
-  // stars = Object.values(stars)
-  //   .sort((a, b) => {
-  //     return b.stars - a.stars;
-  //   })
-  //   .slice(0, 7);
-  // console.log(stars);
-
-  // const chartData = [
-  //   {
-  //     label: "HTML",
-  //     value: "13",
-  //   },
-  //   {
-  //     label: "CSS",
-  //     value: "23",
-  //   },
-  //   {
-  //     label: "Java Script",
-  //     value: "80",
-  //   },
-  // ];
+  const reposForksMAX = Object.values(forks)
+    .sort((a, b) => {
+      return b.value - a.value;
+    })
+    .slice(0, 5);
 
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={mostPopular} />
-        <div></div>
+        <Column3D data={reposStarsMAX} />
         <Doughnut2D data={starsReiting} />
-        <div></div>
+        <Bar3D data={reposForksMAX} />
       </Wrapper>
     </section>
   );
