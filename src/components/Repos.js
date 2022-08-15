@@ -25,6 +25,31 @@ const Repos = () => {
     })
     .slice(0, 5);
 
+  let stars = repos.reduce((total, item) => {
+    const { language, stargazers_count } = item;
+
+    console.log(item.stargazers_count);
+
+    if (!language) return total;
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 * item.stargazers_count };
+    } else {
+      total[language] = {
+        label: language,
+        value: total[language].value + 1 * item.stargazers_count,
+      };
+    }
+
+    return total;
+  }, {});
+
+  stars = Object.values(stars)
+    .sort((a, b) => {
+      return b.vlue - a.value;
+    })
+    .slice(0, 5);
+  console.log(stars);
+
   const chartData = [
     {
       label: "HTML",
@@ -44,7 +69,7 @@ const Repos = () => {
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={languages} />
-        <Doughnut2D data={chartData} />
+        <Doughnut2D data={stars} />
         {/* <ExampleChart data={chartData} /> */}
       </Wrapper>
     </section>
