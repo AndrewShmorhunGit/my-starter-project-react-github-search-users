@@ -1,7 +1,7 @@
+import React from "react";
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
-
 // Resolves charts dependancy
 charts(FusionCharts);
 
@@ -50,16 +50,16 @@ const dataSource = {
   ],
 };
 
-class MyComponent extends React.Component {
-  render() {
-    return (
-      <ReactFusioncharts
-        type="column2d"
-        width="100%"
-        height="100%"
-        dataFormat="JSON"
-        dataSource={dataSource}
-      />
-    );
-  }
-}
+const ChartComponent = () => {
+  return (
+    <ReactFusioncharts
+      type="column2d"
+      width="100%"
+      height="100%"
+      dataFormat="JSON"
+      dataSource={dataSource}
+    />
+  );
+};
+
+export default ChartComponent;
