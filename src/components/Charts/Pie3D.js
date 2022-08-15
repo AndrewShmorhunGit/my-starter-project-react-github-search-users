@@ -31,7 +31,7 @@ const Pie3D = ({ data }) => {
         //Set the chart caption
         caption: "Languages",
         paletteColors:
-          "#51cf66, #0066b6 ,#d84924, #868e96, #f7e018, #1098ad, #12b886, #be4bdb, #868e96",
+          "#51cf66, #0066b6 ,#d84924, #f7e018, #868e96, #1098ad, #12b886, #be4bdb, #868e96",
         theme: "gammel",
         decimals: 0,
         pieRadius: "50%",
