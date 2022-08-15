@@ -14,7 +14,7 @@ import FusionCharts from "fusioncharts";
 import Column2D from "fusioncharts/fusioncharts.charts";
 
 // Include the theme as fusion
-import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import FusionTheme from "fusioncharts/themes/fusioncharts.theme.gammel";
 
 // Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
@@ -82,10 +82,10 @@ const Pie3D = ({ data }) => {
         // numberSuffix: "%",
         //Set the theme for your chart
         paletteColors:
-          "#d84924, #0066b6 , #f7e018, #1098ad, #12b886,#be4bdb, #868e96",
-        theme: "fusion",
+          "#f7e018, #0066b6 ,#d84924, #0066b6, #f7e018, #1098ad, #12b886, #be4bdb, #868e96",
+        theme: "gammel",
         decimals: 0,
-        pieRadius: "60%",
+        pieRadius: "50%",
       },
       // Chart Data
       data,

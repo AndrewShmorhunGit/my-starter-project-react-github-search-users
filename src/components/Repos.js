@@ -8,69 +8,88 @@ const Repos = () => {
 
   console.log(repos);
 
-  let languages = repos.reduce((total, item) => {
-    const { language } = item;
-    if (!language) return total;
-    if (!total[language]) {
-      total[language] = { label: language, value: 1 };
-    } else {
-      total[language] = { label: language, value: total[language].value + 1 };
-    }
-
-    return total;
-  }, {});
-  languages = Object.values(languages)
-    .sort((a, b) => {
-      return b.vlue - a.value;
-    })
-    .slice(0, 5);
-
-  let stars = repos.reduce((total, item) => {
+  const languages = repos.reduce((total, item) => {
     const { language, stargazers_count } = item;
-
-    console.log(item.stargazers_count);
-
     if (!language) return total;
     if (!total[language]) {
-      total[language] = { label: language, value: 1 * item.stargazers_count };
+      total[language] = {
+        label: language,
+        value: 1,
+        stars: stargazers_count,
+      };
     } else {
       total[language] = {
         label: language,
-        value: total[language].value + 1 * item.stargazers_count,
+        value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
       };
     }
 
     return total;
   }, {});
 
-  stars = Object.values(stars)
+  const mostPopular = Object.values(languages)
     .sort((a, b) => {
-      return b.vlue - a.value;
+      return b.value - a.value;
     })
-    .slice(0, 5);
-  console.log(stars);
+    .slice(0, 7);
 
-  const chartData = [
-    {
-      label: "HTML",
-      value: "13",
-    },
-    {
-      label: "CSS",
-      value: "23",
-    },
-    {
-      label: "Java Script",
-      value: "80",
-    },
-  ];
+  const starsReiting = Object.values(languages)
+    .sort((a, b) => {
+      return b.stars - a.stars;
+    })
+    .map((item) => {
+      return { ...item, value: item.stars };
+    })
+    .slice(0, 7);
+
+  console.log(mostPopular, starsReiting);
+  // let stars = repos.reduce((total, item) => {
+  //   const { language, stargazers_count } = item;
+
+  //   if (!language) return total;
+  //   if (!total[language]) {
+  //     total[language] = { label: language, value: 1 * item.stargazers_count };
+  //   } else {
+  //     total[language] = {
+  //       label: language,
+  //       value: total[language].value + 1,
+  //       stars: total[language].value + stargazers_count,
+  //     };
+  //   }
+
+  //   return total;
+  // }, {});
+
+  // stars = Object.values(stars)
+  //   .sort((a, b) => {
+  //     return b.stars - a.stars;
+  //   })
+  //   .slice(0, 7);
+  // console.log(stars);
+
+  // const chartData = [
+  //   {
+  //     label: "HTML",
+  //     value: "13",
+  //   },
+  //   {
+  //     label: "CSS",
+  //     value: "23",
+  //   },
+  //   {
+  //     label: "Java Script",
+  //     value: "80",
+  //   },
+  // ];
 
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <Pie3D data={languages} />
-        <Doughnut2D data={stars} />
-        {/* <ExampleChart data={chartData} /> */}
+        <Pie3D data={mostPopular} />
+        <div></div>
+        <Doughnut2D data={starsReiting} />
+        <div></div>
       </Wrapper>
     </section>
   );

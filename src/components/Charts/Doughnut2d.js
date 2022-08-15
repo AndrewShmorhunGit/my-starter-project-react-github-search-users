@@ -14,7 +14,7 @@ import FusionCharts from "fusioncharts";
 import Column2D from "fusioncharts/fusioncharts.charts";
 
 // Include the theme as fusion
-import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import FusionTheme from "fusioncharts/themes/fusioncharts.theme.gammel";
 
 // Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
@@ -24,13 +24,13 @@ const Doughnut2d = ({ data }) => {
   const chartConfigs = {
     type: "doughnut2d", // The chart type
     width: "100%", // Width of the chart
-    height: "100%", // Height of the chart
+    height: "500", // Height of the chart
     dataFormat: "json", // Data type
     dataSource: {
       // Chart Configuration
       chart: {
         //Set the chart caption
-        caption: "Stars per Languages",
+        caption: "Stars per Language",
         // //Set the chart subcaption
         // subCaption: "In MMbbl = One Million barrels",
         // //Set the x-axis name
@@ -40,10 +40,11 @@ const Doughnut2d = ({ data }) => {
         // numberSuffix: "%",
         //Set the theme for your chart
         paletteColors:
-          "#d84924, #0066b6 , #f7e018, #1098ad, #12b886,#be4bdb, #868e96",
-        theme: "fusion",
+          "#f7e018, #0066b6 ,#d84924, #0066b6, #f7e018, #1098ad, #12b886, #be4bdb, #868e96",
+        theme: "gammel",
         decimals: 0,
-        pieRadius: "50%",
+        doughnutRadius: "60%",
+        showPercentValues: 0,
       },
       // Chart Data
       data,
