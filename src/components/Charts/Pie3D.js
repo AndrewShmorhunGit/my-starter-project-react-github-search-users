@@ -65,8 +65,8 @@ ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
 const Pie3D = ({ data }) => {
   const chartConfigs = {
     type: "pie2d", // The chart type
-    width: "50%", // Width of the chart
-    height: "400", // Height of the chart
+    width: "100%", // Width of the chart
+    height: "500", // Height of the chart
     dataFormat: "json", // Data type
     dataSource: {
       // Chart Configuration
