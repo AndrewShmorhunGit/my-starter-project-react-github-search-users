@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import mockUser from "./mockData.js/mockUser";
 import mockRepos from "./mockData.js/mockRepos";
 import mockFollowers from "./mockData.js/mockFollowers";
@@ -8,9 +8,11 @@ const rootUrl = "https://api.github.com";
 
 const repoUrl = "https://api.github.com/users/john-smilga/repos?per_page=100";
 
-const folowersUrl = "https://api.github.com/users/john-smilga/followers";
+const followersUrl = "https://api.github.com/users/john-smilga/followers";
 
 const GithubContext = React.createContext(); // 1 step
+
+// bradtraverst, wesbos, sdras, cassidoo, jlengstorf, john-smilga, courthead, marcysutton, KyleAMathews
 
 // Provider, Consumer - GithubContext.Provider
 
@@ -52,7 +54,16 @@ const GithubProvider = ({ children }) => {
     );
 
     if (response) {
+      console.log(response);
       setGithubUser(response.data);
+      const { login, followers_url } = response.data;
+      const reposResp = await axios(
+        `${rootUrl}/users/${login}/repos?per_page=100`
+      ).then((response) => setRepos(response.data));
+      const followersResp = await axios(`${followers_url}?per_page=100`).then(
+        (response) => setFollowers(response.data)
+      );
+      // await Promise.allSettled([]);
     } else {
       toggleError(true, "There is no such user with that name");
     }
