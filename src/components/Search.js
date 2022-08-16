@@ -3,11 +3,18 @@ import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
 import { GithubContext } from "../context/context";
 const Search = () => {
-  const { local } = React.useContext(GithubContext);
+  const { requests } = React.useContext(GithubContext);
   const [user, setUser] = React.useState("");
+
+  console.log(requests);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    if (!user) {
+      // showAlert()
+    } else {
+      setUser("");
+    }
   };
   return (
     <section className="section">
@@ -21,10 +28,10 @@ const Search = () => {
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
-            <button type="submit">search</button>
+            {requests > 0 && <button type="submit">search</button>}
           </div>
         </form>
-        <h3>Requests : 60 / 60</h3>
+        <h3>Requests : {requests}/ 60</h3>
       </Wrapper>
     </section>
   );
