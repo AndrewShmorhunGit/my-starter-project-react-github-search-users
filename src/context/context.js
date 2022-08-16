@@ -57,13 +57,26 @@ const GithubProvider = ({ children }) => {
       console.log(response);
       setGithubUser(response.data);
       const { login, followers_url } = response.data;
-      const reposResp = await axios(
-        `${rootUrl}/users/${login}/repos?per_page=100`
-      ).then((response) => setRepos(response.data));
-      const followersResp = await axios(`${followers_url}?per_page=100`).then(
-        (response) => setFollowers(response.data)
-      );
-      // await Promise.allSettled([]);
+
+      await Promise.allSettled([
+        axios(`${rootUrl}/users/${login}/repos?per_page=100`),
+        axios(`${followers_url}?per_page=100`),
+      ])
+        .then((results) => {
+          const [repos, followers] = results;
+          const status = "fulfilled";
+          if (repos.status === status) {
+            setRepos(repos.value.data);
+          } else {
+            toggleError(true, "Opps! Someting went wrong 😕 with repos");
+          }
+          if (followers.status === status) {
+            setFollowers(followers.value.data);
+          } else {
+            toggleError(true, "Opps! Someting went wrong 😕 with followers");
+          }
+        })
+        .catch((error) => console.log(error));
     } else {
       toggleError(true, "There is no such user with that name");
     }
