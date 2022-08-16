@@ -6,6 +6,10 @@ import axios from "axios";
 
 const rootUrl = "https://api.github.com";
 
+const repoUrl = "https://api.github.com/users/john-smilga/repos?per_page=100";
+
+const folowersUrl = "https://api.github.com/users/john-smilga/followers";
+
 const GithubContext = React.createContext(); // 1 step
 
 // Provider, Consumer - GithubContext.Provider
@@ -17,8 +21,8 @@ const GithubProvider = ({ children }) => {
 
   // request loading
   const [requests, setRequests] = useState(0);
-  const [laoding, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({ show: false, msg: "" });
 
   const checkRequesrs = () => {
     axios(`${rootUrl}/rate_limit`)
@@ -28,10 +32,32 @@ const GithubProvider = ({ children }) => {
         } = data;
         setRequests(remaining);
         if (remaining === 0) {
-          // setError(true);
+          toggleError(true, "Sorry, you have exceeded you hourly rate limit!");
         }
       })
       .catch((error) => console.log(error));
+  };
+
+  function toggleError(show = false, msg = "") {
+    setError({ show, msg });
+  }
+
+  // Opps! Someting went wrong 😕
+
+  const searchGitHubUser = async (user) => {
+    toggleError();
+    setLoading(true);
+    const response = await axios(`${rootUrl}/users/${user}`).catch((error) =>
+      console.log(error)
+    );
+
+    if (response) {
+      setGithubUser(response.data);
+    } else {
+      toggleError(true, "There is no such user with that name");
+    }
+    checkRequesrs();
+    setLoading(false);
   };
 
   useEffect(checkRequesrs, []);
@@ -45,6 +71,10 @@ const GithubProvider = ({ children }) => {
         // setGithubUser,
         // setRepos,
         requests,
+        error,
+        loading,
+        // setError,
+        searchGitHubUser,
       }}
     >
       {children}
