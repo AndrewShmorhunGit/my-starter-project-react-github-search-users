@@ -10,10 +10,8 @@ const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user) {
-      // showAlert()
     } else {
       searchGitHubUser(user);
-      // setUser("");
     }
   };
   return (
